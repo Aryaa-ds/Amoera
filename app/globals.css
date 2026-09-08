@@ -1,23 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+@theme {
+  /* ==========================
+     AMOERA Elegant Palette
+     ========================== */
+
+  /* Background */
+  --color-background: #F8F6F2;
+  --color-surface: #FFFFFF;
+  --color-surface-soft: #FCFBF9;
+
+  /* Primary */
+  --color-primary: #C8A46A;
+  --color-primary-hover: #B89255;
+  --color-primary-light: #E8DCCB;
+
+  /* Neutral */
+  --color-text: #2E2E2E;
+  --color-text-secondary: #6E6E6E;
+  --color-text-muted: #9A9A9A;
+
+  /* Border */
+  --color-border: #E6DED3;
+  --color-border-light: #F1ECE6;
+
+  /* Accent */
+  --color-accent: #D4B483;
+  --color-success: #6F9C7A;
+  --color-warning: #D8A75C;
+  --color-error: #C96C6C;
+
+  /* Floral */
+  --color-ivory: #F8F6F2;
+  --color-beige: #E8DDD1;
+  --color-champagne: #F3E7D4;
+  --color-gold: #C8A46A;
+  --color-eucalyptus: #A8B8A5;
+
+  /* Shadow */
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.06);
+  --shadow-button: 0 4px 16px rgba(200, 164, 106, 0.25);
+
+  /* Radius */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-full: 9999px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   background: var(--background);
