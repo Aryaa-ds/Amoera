@@ -3,12 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Cover } from "./Cover";
 import { Hero } from "./Hero";
-import { Couple } from "./Couple";
 import { Verse } from "./Verse";
-import { Story } from "./Story";
+import { Couple } from "./Couple";
 import { Events } from "./Events";
 import { Gallery } from "./Gallery";
-import { Countdown } from "./Countdown";
+import { Story } from "./Story";
 import { Gift } from "./Gift";
 import { Rsvp } from "./Rsvp";
 import { Closing } from "./Closing";
@@ -21,6 +20,11 @@ type Props = {
   guestName?: string;
 };
 
+/**
+ * Modern Blue — tema orisinal Amoera (bukan turunan Maroon).
+ * Inspirasi: inv.wekita.id/spesial-01 — kolom sempit di tengah,
+ * navy + dusty blue + ivory hangat, serif elegan + sans bersih.
+ */
 export default function ModernBlue({
   invitation,
   guestName = "Tamu Undangan",
@@ -65,7 +69,7 @@ export default function ModernBlue({
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#FDF8F1]">
+    <main className="min-h-screen overflow-x-hidden bg-[#EDF2F7] font-body text-[#2E3A4A]">
       <audio
         ref={audioRef}
         src={invitation.music?.src || "/audio/bermuara.mp3"}
@@ -82,22 +86,26 @@ export default function ModernBlue({
           onOpen={openInvitation}
         />
       )}
-      <Hero
-        couple={invitation.couple}
-        weddingDateLabel={invitation.weddingDateLabel}
-        coverImage={invitation.cover}
-        started={leaving || opened}
-      />
-      <Couple couple={invitation.couple} />
-      <Verse />
-      <Story story={[...invitation.story]} />
-      <Events events={[...invitation.events]} />
-      <Gallery photos={invitation.gallery ? [...invitation.gallery] : undefined} />
-      <Countdown weddingDate={invitation.weddingDate} />
-      <Gift gifts={[...invitation.gifts]} qris={invitation.qris || undefined} />
-      <Rsvp slug={invitation.slug} guestName={guestName} />
-      <Closing couple={invitation.couple} />
-      <Footer />
+
+      {/* kolom sempit di tengah, seperti undangan mobile-first */}
+      <div className="mx-auto min-h-screen max-w-xl bg-[#FDF8F1] shadow-[0_0_60px_rgba(30,58,95,0.12)]">
+        <Hero
+          couple={invitation.couple}
+          weddingDate={invitation.weddingDate}
+          weddingDateLabel={invitation.weddingDateLabel}
+          coverImage={invitation.cover}
+        />
+        <Verse />
+        <Couple couple={invitation.couple} />
+        <Events events={[...invitation.events]} />
+        <Gallery photos={invitation.gallery ? [...invitation.gallery] : undefined} />
+        <Story story={[...invitation.story]} />
+        <Gift gifts={[...invitation.gifts]} qris={invitation.qris || undefined} />
+        <Rsvp slug={invitation.slug} guestName={guestName} />
+        <Closing couple={invitation.couple} />
+        <Footer />
+      </div>
+
       {opened && <MusicToggle playing={playing} onToggle={toggleMusic} />}
     </main>
   );

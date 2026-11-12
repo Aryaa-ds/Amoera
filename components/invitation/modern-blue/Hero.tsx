@@ -1,76 +1,102 @@
 "use client";
 
 import Image from "next/image";
-import { Divider, Sprig } from "./Ornament";
-import { cn } from "@/lib/utils";
+import { Countdown } from "./Countdown";
+import { Divider, FloralCorner } from "./Ornament";
+import { Reveal } from "./Reveal";
 
-export function Hero({
-  couple,
-  weddingDateLabel,
-  coverImage = "/images/templates/modern-blue/hero-couple.png",
-  started = true,
-}: {
-  couple: {
-    bride: { name: string; short: string };
-    groom: { name: string; short: string };
-  };
+type Couple = {
+  bride: { name: string; short: string };
+  groom: { name: string; short: string };
+};
+
+type Props = {
+  couple: Couple;
+  weddingDate: string;
   weddingDateLabel: string;
-  coverImage?: string;
-  started?: boolean;
-}) {
+  coverImage: string;
+};
+
+/** Ubah tanggal ISO jadi format dasar UTC untuk link Google Calendar. */
+function toGoogleDate(iso: string) {
+  const d = new Date(iso);
+  return d
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\.\d{3}Z$/, "Z");
+}
+
+function saveTheDateUrl(weddingDate: string, names: string) {
+  const start = toGoogleDate(weddingDate);
+  const end = toGoogleDate(
+    new Date(new Date(weddingDate).getTime() + 2 * 60 * 60 * 1000).toISOString(),
+  );
+  const q = new URLSearchParams({
+    action: "TEMPLATE",
+    text: `Pernikahan ${names}`,
+    dates: `${start}/${end}`,
+    details: "Undangan pernikahan — Amoera",
+  });
+  return `https://calendar.google.com/calendar/render?${q.toString()}`;
+}
+
+/** Pembuka: foto lengkung (arch), nama besar, countdown, Save the Date. */
+export function Hero({ couple, weddingDate, weddingDateLabel, coverImage }: Props) {
+  const names = `${couple.groom.short} & ${couple.bride.short}`;
+
   return (
-    <header className="relative overflow-hidden bg-[#16324F] px-6 pb-24 pt-16 text-[#FDF8F1] sm:pt-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200,164,106,0.12)_0,transparent_70%)]" />
+    <section className="relative overflow-hidden px-6 pb-16 pt-14 text-center">
+      <FloralCorner className="absolute -left-4 top-0 w-28 opacity-70" />
+      <FloralCorner flip className="absolute -right-4 top-0 w-28 opacity-70" />
 
-      <div className="relative mx-auto flex max-w-md flex-col items-center text-center sm:max-w-xl">
-        <p
-          className={cn(
-            "text-[0.7rem] uppercase tracking-[0.35em] text-[#DCE9F7]/80 font-medium transition-opacity duration-1000",
-            started ? "opacity-100" : "opacity-0",
-          )}
-        >
-          The Wedding Of
+      <Reveal className="relative">
+        <p className="text-[11px] uppercase tracking-[0.35em] text-[#6E7B8C]">
+          The Wedding of
         </p>
+        <h2 className="mt-3 font-display text-[2.6rem] font-semibold leading-[1.05] text-[#1E3A5F]">
+          {couple.groom.short}
+          <br />
+          <span className="italic text-[#7FA8CC]">&amp;</span>
+          <br />
+          {couple.bride.short}
+        </h2>
+        <Divider className="mt-6" />
+        <p className="mt-6 text-sm leading-relaxed text-[#6E7B8C]">
+          Kami berharap Anda menjadi bagian
+          <br />
+          dari hari istimewa kami.
+        </p>
+      </Reveal>
 
-        <div className={cn("mt-8 w-full transition-all duration-1000", started ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")}>
-          <div className="mx-auto w-[15rem] p-[3px] sm:w-[18rem]">
-            <div className="rounded-t-full overflow-hidden border border-[#DCE9F7]/40 p-[5px] bg-[#0F2440]/50">
-              <div className="relative h-[20rem] w-full rounded-t-full overflow-hidden sm:h-[24rem]">
-                <Image
-                  src={coverImage}
-                  alt={`${couple.bride.short} & ${couple.groom.short}`}
-                  fill
-                  priority
-                  className="object-cover object-top transition-transform duration-1000 ease-out hover:scale-105"
-                />
-              </div>
-            </div>
+      <Reveal delay={120} className="relative mx-auto mt-8 max-w-[240px]">
+        <div className="overflow-hidden rounded-t-[999px] rounded-b-3xl border-[6px] border-white shadow-lg shadow-[#1E3A5F]/10">
+          <div className="relative aspect-[3/4] w-full">
+            <Image
+              src={coverImage}
+              alt="Foto kedua mempelai"
+              fill
+              className="object-cover object-top"
+            />
           </div>
         </div>
+      </Reveal>
 
-        <Sprig className="mt-8 h-8 w-32 text-[#DCE9F7]/60" />
-
-        <h1 className="mt-6 font-serif text-[2.5rem] leading-[1.1] tracking-tight text-[#FDF8F1] sm:text-5xl">
-          {couple.bride.name}
-          <span className="my-2 block font-serif text-2xl italic text-[#DCE9F7]/85 sm:text-3xl">
-            &amp;
-          </span>
-          {couple.groom.name}
-        </h1>
-
-        <Divider tone="blue" className="mt-8 w-full max-w-xs" width="w-full" />
-
-        <p className="mt-5 text-[0.75rem] uppercase tracking-[0.25em] text-[#FDF8F1]/75">
+      <Reveal delay={200} className="relative mt-10">
+        <p className="font-display text-2xl font-semibold text-[#1E3A5F]">
           {weddingDateLabel}
         </p>
-
+        <div className="mx-auto mt-6 max-w-sm">
+          <Countdown weddingDate={weddingDate} />
+        </div>
         <a
-          href="#event"
-          className="mt-10 inline-flex items-center border-b border-[#DCE9F7]/50 pb-1.5 text-xs uppercase tracking-[0.2em] text-[#DCE9F7] transition-colors hover:border-[#FDF8F1] hover:text-[#FDF8F1]"
+          href={saveTheDateUrl(weddingDate, names)}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#1E3A5F]/40 px-6 py-2.5 text-xs font-medium uppercase tracking-[0.2em] text-[#1E3A5F] transition hover:bg-[#1E3A5F] hover:text-white"
         >
-          Save The Date
+          Save the Date
         </a>
-      </div>
-    </header>
+      </Reveal>
+    </section>
   );
 }

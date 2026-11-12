@@ -1,6 +1,6 @@
 "use client";
 
-import { Divider, Sprig } from "./Ornament";
+import { Divider } from "./Ornament";
 import { Reveal } from "./Reveal";
 
 type EventItem = {
@@ -12,47 +12,51 @@ type EventItem = {
   maps: string;
 };
 
-export function Events({
-  events,
-}: {
-  events: EventItem[];
-}) {
+/** Kartu acara: Akad & Resepsi dengan tombol Lihat Lokasi. */
+export function Events({ events }: { events: EventItem[] }) {
   return (
-    <section id="event" className="relative overflow-hidden bg-[#16324F] px-6 py-24 text-[#FDF8F1] sm:py-32">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200,164,106,0.12)_0,transparent_70%)]" />
+    <section className="relative px-6 py-14">
+      <Reveal className="text-center">
+        <p className="text-[11px] uppercase tracking-[0.3em] text-[#7FA8CC]">
+          Rangkaian Acara
+        </p>
+        <h2 className="mt-2 font-display text-3xl font-semibold text-[#1E3A5F]">
+          Save the Date
+        </h2>
+        <Divider className="mt-5" />
+      </Reveal>
 
-      <div className="relative mx-auto max-w-3xl">
-        <Reveal className="flex flex-col items-center text-center">
-          <p className="text-[0.7rem] uppercase tracking-[0.3em] text-[#DCE9F7]/75 font-medium">
-            Save The Date
-          </p>
-          <h2 className="mt-4 font-serif text-3xl text-[#FDF8F1] sm:text-4xl">Wedding Event</h2>
-          <Divider tone="blue" className="mt-6" width="w-20" />
-        </Reveal>
-
-        <div className="mt-14 grid gap-12 sm:grid-cols-2 sm:gap-10">
-          {events.map((ev, i) => (
-            <Reveal key={ev.title} delay={i * 110} className="flex flex-col items-center text-center p-6 border border-[#DCE9F7]/20 rounded-2xl bg-[#0F2440]/40 backdrop-blur-sm">
-              <Sprig className="h-6 w-20 text-[#DCE9F7]/50" />
-              <h3 className="text-xs uppercase tracking-[0.25em] mt-4 text-[#DCE9F7] font-semibold">{ev.title}</h3>
-              <p className="mt-4 font-serif text-2xl text-[#FDF8F1]">{ev.date}</p>
-              <p className="mt-2 text-xs tracking-[0.2em] text-[#FDF8F1]/70 uppercase">{ev.time}</p>
-              <span className="mt-5 h-px w-10 bg-[#7FA8C9]/50" />
-              <p className="mt-5 font-serif text-lg italic text-[#DCE9F7]">{ev.place}</p>
-              <p className="mt-2 max-w-[17rem] text-xs leading-relaxed text-[#FDF8F1]/65">
+      <div className="mt-8 space-y-5">
+        {events.map((ev, i) => (
+          <Reveal key={ev.title} delay={i * 120}>
+            <article className="rounded-3xl border border-[#7FA8CC]/25 bg-white/80 p-6 text-center shadow-sm">
+              <p className="text-[11px] uppercase tracking-[0.3em] text-[#7FA8CC]">
+                {ev.title}
+              </p>
+              <p className="mt-3 font-display text-2xl font-semibold text-[#1E3A5F]">
+                {ev.date}
+              </p>
+              <p className="mt-1 text-sm text-[#6E7B8C]">Pukul {ev.time}</p>
+              <div className="mx-auto mt-4 h-px w-12 bg-[#7FA8CC]/40" />
+              <p className="mt-4 text-sm font-medium text-[#2E3A4A]">{ev.place}</p>
+              <p className="mt-1 text-xs leading-relaxed text-[#6E7B8C]">
                 {ev.address}
               </p>
               <a
                 href={ev.maps}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-6 inline-flex items-center border border-[#DCE9F7]/40 px-6 py-2.5 text-[0.75rem] uppercase tracking-[0.15em] text-[#DCE9F7] rounded-full transition-all hover:border-[#DCE9F7] hover:bg-[#DCE9F7] hover:text-[#16324F]"
+                className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-[#1E3A5F] px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-white transition hover:bg-[#24406B]"
               >
-                Open Maps
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3.5 w-3.5" aria-hidden="true">
+                  <path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11Z" />
+                  <circle cx="12" cy="10" r="2.5" />
+                </svg>
+                Lihat Lokasi
               </a>
-            </Reveal>
-          ))}
-        </div>
+            </article>
+          </Reveal>
+        ))}
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { Divider, Sprig } from "./Ornament";
+import { Divider } from "./Ornament";
 import { Reveal } from "./Reveal";
 
 type StoryItem = {
@@ -9,50 +9,40 @@ type StoryItem = {
   text: string;
 };
 
-export function Story({
-  story,
-}: {
-  story: StoryItem[];
-}) {
+/** Love story sebagai garis waktu vertikal dengan titik-titik. */
+export function Story({ story }: { story: StoryItem[] }) {
   return (
-    <section className="relative overflow-hidden bg-[#FDF8F1] px-6 py-24 sm:py-32">
-      <div className="relative mx-auto max-w-2xl">
-        <Reveal className="flex flex-col items-center text-center">
-          <p className="text-[0.7rem] uppercase tracking-[0.3em] text-[#16324F]/60 font-semibold">
-            Our Journey
-          </p>
-          <h2 className="mt-4 font-serif text-3xl text-[#2E2E2E] sm:text-4xl">Love Story</h2>
-          <Divider tone="blue" className="mt-6" width="w-20" />
-        </Reveal>
+    <section className="relative px-6 py-14">
+      <Reveal className="text-center">
+        <p className="text-[11px] uppercase tracking-[0.3em] text-[#7FA8CC]">
+          Love Story
+        </p>
+        <h2 className="mt-2 font-display text-3xl font-semibold text-[#1E3A5F]">
+          Perjalanan Kami
+        </h2>
+        <Divider className="mt-5" />
+      </Reveal>
 
-        <ol className="relative mt-14 pl-8 sm:pl-0">
-          <span className="absolute bottom-2 left-[3px] top-2 w-px bg-gradient-to-b from-transparent via-[#16324F]/35 to-transparent sm:left-1/2" />
-          {story.map((item, i) => (
-            <Reveal
-              as="li"
-              key={item.year}
-              delay={i * 90}
-              className={`relative pb-12 last:pb-0 sm:w-1/2 ${
-                i % 2 === 0 ? "sm:pr-10 sm:text-right" : "sm:ml-auto sm:pl-10"
-              }`}
-            >
-              <span
-                className={`absolute -left-8 top-[6px] size-[7px] rotate-45 border border-[#7FA8C9] bg-[#FDF8F1] sm:left-auto ${
-                  i % 2 === 0 ? "sm:-right-[3.5px]" : "sm:-left-[3.5px]"
-                }`}
-              />
-              <p className="font-serif text-xl tracking-wide text-[#7FA8C9] sm:text-2xl">
-                {item.year}
+      <div className="relative mx-auto mt-10 max-w-md">
+        <span className="absolute bottom-2 left-[7px] top-2 w-px bg-[#7FA8CC]/40" />
+        <div className="space-y-9">
+          {story.map((s, i) => (
+            <Reveal key={s.year} delay={i * 100} className="relative pl-9">
+              <span className="absolute left-0 top-1.5 flex size-[15px] items-center justify-center rounded-full border-2 border-[#7FA8CC] bg-[#FDF8F1]">
+                <span className="size-[5px] rounded-full bg-[#1E3A5F]" />
+              </span>
+              <p className="text-[11px] uppercase tracking-[0.25em] text-[#7FA8CC]">
+                {s.year}
               </p>
-              <h3 className="mt-1 font-serif text-lg text-[#2E2E2E] sm:text-xl font-medium">{item.title}</h3>
-              <p className="mt-2 text-xs leading-relaxed text-[#6E6E6E]">
-                {item.text}
+              <h3 className="mt-1 font-display text-2xl font-semibold text-[#1E3A5F]">
+                {s.title}
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-[#6E7B8C]">
+                {s.text}
               </p>
             </Reveal>
           ))}
-        </ol>
-
-        <Sprig className="mx-auto mt-6 h-8 w-32 text-[#16324F]/20" />
+        </div>
       </div>
     </section>
   );

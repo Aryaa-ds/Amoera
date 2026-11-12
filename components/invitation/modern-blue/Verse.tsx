@@ -1,33 +1,23 @@
 "use client";
 
-import { Divider, Sprig } from "./Ornament";
+import { Divider } from "./Ornament";
 import { Reveal } from "./Reveal";
 
+/** Ayat pembuka — QS Ar-Rum 21. */
 export function Verse() {
   return (
-    <section className="relative overflow-hidden bg-[#FBF3EA] px-6 py-24 sm:py-32">
-      <Sprig
-        className="pointer-events-none absolute left-1/2 top-10 h-10 w-56 -translate-x-1/2 text-[#16324F]/15"
-        tone="currentColor"
-      />
-      <Reveal className="relative mx-auto flex max-w-xl flex-col items-center text-center">
-        <p className="text-[0.7rem] uppercase tracking-[0.3em] text-[#16324F]/60 font-semibold">
-          Ar-Rum : 21
+    <section className="relative px-6 py-14 text-center">
+      <Reveal>
+        <p className="text-[11px] uppercase tracking-[0.3em] text-[#7FA8CC]">
+          QS. Ar-Rum : 21
         </p>
-        <p
-          dir="rtl"
-          lang="ar"
-          className="mt-8 font-arabic text-[1.6rem] leading-[2.4] text-[#16324F] sm:text-3xl sm:leading-[2.3]"
-        >
-          وَمِنْ اٰيٰتِهٖۤ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْۤا
-          اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً
-        </p>
-        <Divider tone="blue" className="mt-8" width="w-16" />
-        <p className="mt-8 font-serif text-base italic leading-relaxed text-[#2E2E2E]/85 sm:text-lg">
-          “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
-          pasangan dari jenismu sendiri, agar kamu merasa tenteram bersamanya,
-          dan Dia jadikan di antaramu rasa kasih dan sayang.”
-        </p>
+        <Divider className="mt-5" />
+        <blockquote className="mx-auto mt-6 max-w-md font-display text-xl italic leading-relaxed text-[#1E3A5F]">
+          &ldquo;Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
+          pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung
+          dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa
+          kasih dan sayang.&rdquo;
+        </blockquote>
       </Reveal>
     </section>
   );

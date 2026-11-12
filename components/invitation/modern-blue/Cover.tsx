@@ -1,82 +1,71 @@
 "use client";
 
 import Image from "next/image";
-import { MailOpen } from "lucide-react";
+import { FloralCorner } from "./Ornament";
 import { cn } from "@/lib/utils";
-import { Divider, Sprig } from "./Ornament";
 
+type Couple = {
+  bride: { name: string; short: string };
+  groom: { name: string; short: string };
+};
+
+type Props = {
+  couple: Couple;
+  weddingDateLabel: string;
+  coverImage: string;
+  guestName: string;
+  leaving: boolean;
+  onOpen: () => void;
+};
+
+/**
+ * Sampul layar penuh: foto pasangan di 60% atas yang memudar ke ivory,
+ * nama besar di bawahnya, dan tombol "Buka Undangan".
+ */
 export function Cover({
   couple,
   weddingDateLabel,
-  guestName = "Tamu Undangan",
-  coverImage = "/images/templates/modern-blue/hero-couple.png",
+  coverImage,
+  guestName,
   leaving,
   onOpen,
-}: {
-  couple: {
-    bride: { short: string; name: string };
-    groom: { short: string; name: string };
-  };
-  weddingDateLabel: string;
-  guestName?: string;
-  coverImage?: string;
-  leaving: boolean;
-  onOpen: () => void;
-}) {
+}: Props) {
   return (
     <div
-      role="dialog"
-      aria-modal="true"
-      aria-label="Sampul undangan"
       className={cn(
-        "fixed inset-0 z-[100] overflow-y-auto overflow-x-hidden bg-[#0F2440] text-[#FDF8F1] transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
-        leaving && "pointer-events-none -translate-y-10 opacity-0",
+        "fixed inset-0 z-50 flex flex-col bg-[#FDF8F1] transition-opacity duration-1000",
+        leaving ? "pointer-events-none opacity-0" : "opacity-100",
       )}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200,164,106,0.08)_0,transparent_70%)]" />
-      
-      <div className="relative mx-auto flex min-h-[100svh] max-w-md flex-col items-center justify-center px-6 py-8 text-center">
-        <p className="text-[0.7rem] uppercase tracking-[0.35em] text-[#DCE9F7]/80 font-medium">
-          Undangan Pernikahan
+      <div className="relative h-[56%] w-full overflow-hidden">
+        <Image
+          src={coverImage}
+          alt="Foto kedua mempelai"
+          fill
+          priority
+          className="object-cover object-top"
+        />
+        {/* foto memudar ke ivory */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#FDF8F1] via-[#FDF8F1]/60 to-transparent" />
+        <FloralCorner className="absolute left-0 top-0 w-32 opacity-90" />
+        <FloralCorner flip className="absolute right-0 top-0 w-32 opacity-90" />
+      </div>
+
+      <div className="relative flex flex-1 flex-col items-center justify-center px-6 pb-10 text-center">
+        <p className="text-[11px] uppercase tracking-[0.35em] text-[#6E7B8C]">
+          The Wedding of
         </p>
-
-        <div className="mt-6 w-[11rem] p-[3px] sm:w-[13rem]">
-          <div className="rounded-t-full overflow-hidden border border-[#DCE9F7]/40 p-[5px] bg-[#0B1B30]/50 backdrop-blur-sm">
-            <div className="relative h-[14rem] w-full rounded-t-full overflow-hidden sm:h-[16rem]">
-              <Image
-                src={coverImage}
-                alt={`${couple.bride.short} & ${couple.groom.short}`}
-                fill
-                priority
-                className="object-cover object-top"
-              />
-            </div>
-          </div>
-        </div>
-
-        <Sprig className="mt-6 h-7 w-28 text-[#DCE9F7]/60" />
-
-        <h1 className="mt-4 font-serif text-4xl leading-[1.1] tracking-tight text-[#FDF8F1] sm:text-5xl">
+        <h1 className="mt-3 font-display text-5xl font-semibold leading-tight text-[#1E3A5F]">
+          {couple.groom.short}{" "}
+          <span className="italic text-[#7FA8CC]">&amp;</span>{" "}
           {couple.bride.short}
-          <span className="mx-3 font-serif text-2xl italic text-[#DCE9F7]/85">
-            &amp;
-          </span>
-          {couple.groom.short}
         </h1>
+        <p className="mt-3 text-sm text-[#6E7B8C]">{weddingDateLabel}</p>
 
-        <Divider tone="blue" className="mt-6 w-full max-w-[14rem]" width="w-full" />
-
-        <p className="mt-4 text-[0.75rem] tracking-[0.25em] text-[#FDF8F1]/75 uppercase">
-          {weddingDateLabel}
-        </p>
-
-        <div className="mt-7">
-          <p className="text-[0.68rem] uppercase leading-relaxed tracking-[0.28em] text-[#FDF8F1]/55">
-            Kepada Yth.
-            <br />
-            Bapak / Ibu / Saudara/i
-          </p>
-          <p className="mt-2 font-serif text-2xl italic text-[#DCE9F7]">
+        <div className="mt-8 w-full max-w-xs">
+          <p className="text-xs text-[#6E7B8C]">Kepada Yth.</p>
+          <p className="text-xs text-[#6E7B8C]">Bapak/Ibu/Saudara/i</p>
+          <p className="mt-1 font-display text-xl font-semibold italic text-[#1E3A5F]">
             {guestName}
           </p>
         </div>
@@ -84,9 +73,12 @@ export function Cover({
         <button
           type="button"
           onClick={onOpen}
-          className="group mt-8 inline-flex items-center gap-3 border border-[#DCE9F7]/50 px-8 py-3.5 text-xs uppercase tracking-[0.2em] text-[#DCE9F7] transition-all duration-500 hover:border-[#DCE9F7] hover:bg-[#DCE9F7] hover:text-[#0F2440] active:scale-95 cursor-pointer rounded-full"
+          className="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#1E3A5F] px-7 py-3 text-xs font-medium uppercase tracking-[0.2em] text-white shadow-lg shadow-[#1E3A5F]/25 transition hover:bg-[#24406B] active:scale-95"
         >
-          <MailOpen className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-0.5" />
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m3.5 7 8.5 6 8.5-6" />
+          </svg>
           Buka Undangan
         </button>
       </div>

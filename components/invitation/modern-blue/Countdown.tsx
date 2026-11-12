@@ -1,61 +1,48 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Reveal } from "./Reveal";
 
-function diff(target: number) {
-  const ms = Math.max(0, target - Date.now());
+function parts(target: string) {
+  const diff = Math.max(0, new Date(target).getTime() - Date.now());
   return {
-    days: Math.floor(ms / 86400000),
-    hours: Math.floor((ms / 3600000) % 24),
-    minutes: Math.floor((ms / 60000) % 60),
-    seconds: Math.floor((ms / 1000) % 60),
+    days: Math.floor(diff / 86_400_000),
+    hours: Math.floor(diff / 3_600_000) % 24,
+    minutes: Math.floor(diff / 60_000) % 60,
+    seconds: Math.floor(diff / 1_000) % 60,
   };
 }
 
-export function Countdown({
-  weddingDate,
-}: {
-  weddingDate: string;
-}) {
-  const target = new Date(weddingDate).getTime();
-  const [t, setT] = useState(() => diff(target));
+/** Hitung mundur ke tanggal pernikahan — 4 kotak angka. */
+export function Countdown({ weddingDate }: { weddingDate: string }) {
+  const [now, setNow] = useState(() => parts(weddingDate));
 
   useEffect(() => {
-    const id = setInterval(() => setT(diff(target)), 1000);
+    const id = setInterval(() => setNow(parts(weddingDate)), 1000);
     return () => clearInterval(id);
-  }, [target]);
+  }, [weddingDate]);
 
-  const units = [
-    { value: t.days, label: "Days" },
-    { value: t.hours, label: "Hours" },
-    { value: t.minutes, label: "Minutes" },
-    { value: t.seconds, label: "Seconds" },
+  const cells = [
+    { value: now.days, label: "Hari" },
+    { value: now.hours, label: "Jam" },
+    { value: now.minutes, label: "Menit" },
+    { value: now.seconds, label: "Detik" },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#16324F] px-6 py-20 text-[#FDF8F1] sm:py-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200,164,106,0.12)_0,transparent_70%)]" />
-      <Reveal className="relative mx-auto max-w-2xl text-center">
-        <p className="text-[0.7rem] uppercase tracking-[0.3em] text-[#DCE9F7]/75 font-medium">Counting The Days</p>
-        <div className="mt-10 grid grid-cols-4 items-start">
-          {units.map((u, i) => (
-            <div
-              key={u.label}
-              className={`flex flex-col items-center px-1 ${
-                i > 0 ? "border-l border-[#7FA8C9]/30" : ""
-              }`}
-            >
-              <span className="font-serif text-3xl leading-none text-[#FDF8F1] tabular-nums sm:text-5xl font-semibold">
-                {String(u.value).padStart(2, "0")}
-              </span>
-              <span className="mt-3 text-[0.65rem] uppercase tracking-[0.2em] text-[#FDF8F1]/60 sm:text-[0.75rem]">
-                {u.label}
-              </span>
-            </div>
-          ))}
+    <div className="grid grid-cols-4 gap-2.5">
+      {cells.map((c) => (
+        <div
+          key={c.label}
+          className="rounded-2xl border border-[#7FA8CC]/30 bg-white/70 px-1 py-3 text-center"
+        >
+          <p className="font-display text-3xl font-semibold leading-none text-[#1E3A5F]">
+            {String(c.value).padStart(2, "0")}
+          </p>
+          <p className="mt-1.5 text-[10px] uppercase tracking-[0.18em] text-[#6E7B8C]">
+            {c.label}
+          </p>
         </div>
-      </Reveal>
-    </section>
+      ))}
+    </div>
   );
 }

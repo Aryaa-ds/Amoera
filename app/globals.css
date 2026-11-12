@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap");
 
 
 @theme {
@@ -37,6 +38,10 @@
   --color-champagne: #F3E7D4;
   --color-gold: #C8A46A;
   --color-eucalyptus: #A8B8A5;
+
+  /* Modern Blue display fonts (tema modern-blue) */
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Jost", Arial, Helvetica, sans-serif;
 
   /* Shadow */
   --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.08);
