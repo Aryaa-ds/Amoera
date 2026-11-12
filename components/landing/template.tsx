@@ -1,6 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
+// Harga per template (bukan paket) — diputuskan Arya 12 Nov 2026,
+// paling mahal Rp129.000. Tambah template = tambah 1 entri + harga.
+const WHATSAPP_NUMBER = "6285951589769";
+
 export default function TemplateSection() {
   const templates = [
     {
@@ -8,12 +12,14 @@ export default function TemplateSection() {
       slug: "floral-minimalist",
       image: "/images/templates/floral-minimalist/bride-groom/cover.png",
       tag: "Minimalist & Nature",
+      price: 99000,
     },
     {
       name: "Maroon Elegance",
       slug: "maroon-elegance",
       image: "/images/templates/maroon-elegance/hero-couple.jpg",
       tag: "Luxury & Editorial",
+      price: 129000,
     },
   ];
 
@@ -50,15 +56,30 @@ export default function TemplateSection() {
                     {tpl.name}
                   </h3>
                   <p className="text-xs text-text-muted mt-1">Undangan Digital Premium</p>
+                  <p className="mt-2 text-lg font-bold text-primary">
+                    Rp{tpl.price.toLocaleString("id-ID")}
+                  </p>
                 </div>
-                <Link
-                  // Preview mengarah ke /demo/ — route /inv/ tidak ada
-                  // di project ini, jadi link lama ke /inv/ selalu 404.
-                  href={`/demo/${tpl.slug}`}
-                  className="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-primary-hover active:scale-95 shrink-0"
-                >
-                  Live Preview
-                </Link>
+                <div className="flex flex-col items-end gap-2 shrink-0">
+                  <Link
+                    // Preview mengarah ke /demo/ — route /inv/ tidak ada
+                    // di project ini, jadi link lama ke /inv/ selalu 404.
+                    href={`/demo/${tpl.slug}`}
+                    className="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-primary-hover active:scale-95"
+                  >
+                    Live Preview
+                  </Link>
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                      `Halo Amoera, saya mau pesan undangan ${tpl.name} (Rp${tpl.price.toLocaleString("id-ID")}).`,
+                    )}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full border border-primary px-4 py-2 text-xs font-semibold text-primary transition hover:bg-primary hover:text-white active:scale-95"
+                  >
+                    Pesan
+                  </a>
+                </div>
               </div>
             </div>
           ))}
