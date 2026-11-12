@@ -21,6 +21,14 @@ export default function TemplateSection() {
       tag: "Luxury & Editorial",
       price: 129000,
     },
+    {
+      name: "Modern Blue",
+      slug: "modern-blue",
+      image: "/images/templates/modern-blue/hero-couple.png",
+      tag: "Modern & Sleek",
+      // Harga paling mahal Rp129.000 (keputusan Arya 12 Nov 2026).
+      price: 129000,
+    },
   ];
 
   return (

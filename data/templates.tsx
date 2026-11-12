@@ -2,9 +2,10 @@ import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import type { InvitationData } from "./invitations/demo";
 import type { MaroonEleganceData } from "./invitations/invitation-data";
+import type { ModernBlueData } from "./invitations/modern-blue";
 
 export type InvitationTemplateProps = {
-    invitation: InvitationData | MaroonEleganceData;
+    invitation: InvitationData | MaroonEleganceData | ModernBlueData;
     guestName?: string;
 };
 
@@ -28,6 +29,10 @@ export const templates: Record<string, ComponentType<InvitationTemplateProps>> =
     ) as ComponentType<InvitationTemplateProps>,
     "maroon-elegance": dynamic(
         () => import("@/components/invitation/maroon-elegance/Index"),
+        { loading: TemplateLoading }
+    ) as ComponentType<InvitationTemplateProps>,
+    "modern-blue": dynamic(
+        () => import("@/components/invitation/modern-blue/Index"),
         { loading: TemplateLoading }
     ) as ComponentType<InvitationTemplateProps>,
 
