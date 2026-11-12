@@ -21,7 +21,7 @@ export default function Footer() {
             Kontak
           </Link>
           <a
-            href="https://wa.me/6281234567890"
+            href="https://wa.me/6285951589769"
             target="_blank"
             rel="noreferrer"
             className="hover:text-primary transition"

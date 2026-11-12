@@ -24,14 +24,14 @@ export const maroonElegance = {
     },
   },
 
-  weddingDate: "2026-11-14T09:00:00+07:00",
+  weddingDate: "2027-11-14T09:00:00+07:00",
 
-  weddingDateLabel: "Sabtu, 14 November 2026",
+  weddingDateLabel: "Minggu, 14 November 2027",
 
   events: [
     {
       title: "Akad Nikah",
-      date: "Sabtu, 14 November 2026",
+      date: "Minggu, 14 November 2027",
       time: "09.00 — 11.00 WIB",
       place: "Masjid Agung Al Falah",
       address: "Jl. Diponegoro No. 12, Bandung, Jawa Barat",
@@ -39,7 +39,7 @@ export const maroonElegance = {
     },
     {
       title: "Resepsi",
-      date: "Sabtu, 14 November 2026",
+      date: "Minggu, 14 November 2027",
       time: "18.00 — 21.00 WIB",
       place: "The Manor Ballroom",
       address: "Jl. Cimanuk No. 45, Bandung, Jawa Barat",
@@ -64,7 +64,7 @@ export const maroonElegance = {
       text: "Janji pertama diucapkan di hadapan keluarga, ditemani rangkaian bunga dan restu yang hangat.",
     },
     {
-      year: "2026",
+      year: "2027",
       title: "Wedding",
       text: "Dan hari itu tiba, ketika dua nama akhirnya ditulis dalam satu kalimat yang sama.",
     },
@@ -89,6 +89,13 @@ export const maroonElegance = {
       name: "Raka Danendra",
     },
   ],
+
+  // QRIS — dikunci aktif oleh Arya (12 Nov 2026), tapi file gambar QR
+  // Maroon belum ada di repo (tidak ada qris.png di
+  // public/images/templates/maroon-elegance/). Isi path gambarnya di
+  // sini kalau sudah ada — Gift.tsx menampilkan kartunya otomatis.
+  // Kosong = kartu QRIS tidak tampil.
+  qris: "",
 };
 
 export type MaroonEleganceData = typeof maroonElegance;

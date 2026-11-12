@@ -50,8 +50,8 @@ export const demoInvitation = {
     event: {
         akad: {
             title: "Akad Nikah",
-            day: "Minggu",
-            date: "20 Desember 2026",
+            day: "Senin",
+            date: "20 Desember 2027",
             time: "08.00 WIB",
             place: "Masjid Agung Pekalongan",
             address: "Jl. KH. Wahid Hasyim No.1, Pekalongan",
@@ -59,8 +59,8 @@ export const demoInvitation = {
 
         reception: {
             title: "Resepsi",
-            day: "Minggu",
-            date: "20 Desember 2026",
+            day: "Senin",
+            date: "20 Desember 2027",
             time: "11.00 WIB",
             place: "Grand Dian Hotel",
             address: "Jl. Gatot Subroto No.88, Pekalongan",
@@ -76,9 +76,9 @@ export const demoInvitation = {
         "/images/templates/floral-minimalist/bride-groom/gallery3.png",
     ],
 
-    weddingDate: "2026-12-20T08:00:00",
+    weddingDate: "2027-12-20T08:00:00",
 
-    date: "20 Desember 2026",
+    date: "20 Desember 2027",
 
     gift: {
         banks: [

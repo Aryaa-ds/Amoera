@@ -52,7 +52,9 @@ export default function TemplateSection() {
                   <p className="text-xs text-text-muted mt-1">Undangan Digital Premium</p>
                 </div>
                 <Link
-                  href={`/inv/${tpl.slug}`}
+                  // Preview mengarah ke /demo/ — route /inv/ tidak ada
+                  // di project ini, jadi link lama ke /inv/ selalu 404.
+                  href={`/demo/${tpl.slug}`}
                   className="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-primary-hover active:scale-95 shrink-0"
                 >
                   Live Preview

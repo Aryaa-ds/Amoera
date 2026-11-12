@@ -11,7 +11,7 @@ export default function KontakPage() {
           Punya pertanyaan seputar pembuatan undangan digital pernikahan Anda? Tim AMOERA siap membantu Anda setiap hari.
         </p>
         <a
-          href="https://wa.me/6281234567890"
+          href="https://wa.me/6285951589769"
           target="_blank"
           rel="noreferrer"
           className="rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white transition hover:bg-primary-hover shadow-button"

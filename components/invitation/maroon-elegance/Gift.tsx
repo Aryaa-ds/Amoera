@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { notify } from "@/lib/toasts";
 import { Divider } from "./Ornament";
 import { Reveal } from "./Reveal";
@@ -13,8 +14,13 @@ type GiftItem = {
 
 export function Gift({
   gifts,
+  qris,
 }: {
   gifts: GiftItem[];
+  // Path gambar QRIS Maroon (dari data/invitations/invitation-data.ts).
+  // Kosong = kartu QRIS tidak tampil — isi path-nya kalau gambar
+  // QRIS sudah ada di public/images/templates/maroon-elegance/.
+  qris?: string;
 }) {
   const [copied, setCopied] = useState<string | null>(null);
 
@@ -66,6 +72,22 @@ export function Gift({
             </Reveal>
           ))}
         </div>
+
+        {qris && (
+          <Reveal
+            delay={gifts.length * 90}
+            className="mt-5 border border-[#4A0E17]/15 bg-white p-6 rounded-2xl shadow-soft text-center"
+          >
+            <Image
+              src={qris}
+              alt="QRIS"
+              width={240}
+              height={240}
+              className="mx-auto rounded-2xl"
+            />
+            <p className="mt-5 text-xs text-[#6E6E6E]">Scan QRIS</p>
+          </Reveal>
+        )}
       </div>
     </section>
   );

@@ -94,7 +94,7 @@ export default function MaroonElegance({
       <Events events={[...invitation.events]} />
       <Gallery photos={invitation.gallery ? [...invitation.gallery] : undefined} />
       <Countdown weddingDate={invitation.weddingDate} />
-      <Gift gifts={[...invitation.gifts]} />
+      <Gift gifts={[...invitation.gifts]} qris={invitation.qris || undefined} />
       <Rsvp slug={invitation.slug} guestName={guestName} />
       <Closing couple={invitation.couple} />
       <Footer />
